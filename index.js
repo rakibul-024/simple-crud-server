@@ -24,6 +24,10 @@ export async function connectToMongoDB() {
 };
 await connectToMongoDB();
 
+  const database = client.db("simpleCrudDB");
+    const users = database.collection("users");
+
+
 // Call this only when your application terminates
 // export async function disconnectFromMongoDB() {
 //   await client.close();
