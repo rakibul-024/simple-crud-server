@@ -59,6 +59,25 @@ app.post('/profile', async (req, res) => {
   res.send(result);
 });
 
+// update a user by id
+app.patch('/users/:id', async (req, res) => {
+  const id = req.params.id;
+  const updatedUser = req.body;
+  console.log('Updating user with id:', id, 'with data:', updatedUser);
+  
+  const filter = { _id: new ObjectId(id) };
+   const options = { upsert: true };
+  const updatedDoc = {
+    $set:{
+      name: updatedUser.name,
+      email: updatedUser.email
+    }
+  };
+  
+  const result = await users.updateOne(filter, updatedDoc);
+  res.send(result);
+});
+
 //delete a user by id
 app.delete('/users/:id', async (req, res) => {
   const id = req.params.id;
